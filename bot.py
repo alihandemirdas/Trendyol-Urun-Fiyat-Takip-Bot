@@ -54,7 +54,7 @@ else:
         page = requests.get(url=links[x], headers=headers)
         htmlPage = BeautifulSoup(page.content, 'html.parser')
         productTitle = htmlPage.find("h1", class_="pr-new-br").getText()
-        price = htmlPage.find("span", class_="prc-slg").getText()
+        price = htmlPage.find("span", class_="prc-dsc").getText()
         convertedPrice = float(price.replace(",", ".").replace(" TL", ""))
 
         first[x] = {'link': links[x], 'productTitle': productTitle,
@@ -86,7 +86,7 @@ def check(x):
     page = requests.get(url=links[x], headers=headers)
     htmlPage = BeautifulSoup(page.content, 'html.parser')
     productTitle = htmlPage.find("h1", class_="pr-new-br").getText()
-    price = htmlPage.find("span", class_="prc-slg").getText()
+    price = htmlPage.find("span", class_="prc-dsc").getText()
     convertedPrice = float(price.replace(",", ".").replace(" TL", ""))
 
     f = open('./data.json')
