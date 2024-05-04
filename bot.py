@@ -61,6 +61,7 @@ else:
                     'convertedPrice': convertedPrice}
 
     first['len'] = len(links)
+    print(first)
     with open('data.json', 'w') as f:
         json.dump(first, f)
 
@@ -96,8 +97,14 @@ def check(x):
     if convertedPrice < valuess[x]["convertedPrice"]:
         message = "💯 --- *FİYAT DÜŞTÜ* --- 💯\n{}\n🎉 Güncel Fiyat: {}\n⏰ İlk Fiyat: {}\n{}".format(productTitle,convertedPrice,valuess[x]["convertedPrice"],links[x])
         sendMessage(message)
+        second[f"{x}"]["convertedPrice"] = convertedPrice
+        with open('data.json', 'w') as f:
+            json.dump(second, f)
         print("Telegram mesajı gönderildi. Güncel Fiyat: " + str(convertedPrice) + "\n")
-
+        
+    elif convertedPrice == valuess[x]["convertedPrice"]:
+        print("Ürün fiyatı değişmedi.\n")
+        
     else:
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -113,4 +120,4 @@ while True:
     for x in range(len(links)):
         check(x)
         time.sleep(1)
-    sayac(600)
+    sayac(10)
